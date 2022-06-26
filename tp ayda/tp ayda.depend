@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1656131504 source:c:\users\jmgoi\onedrive\documentos\ayda\tp1\tp ayda\src\cliente.cpp
+	"CLIENTE.h"
+	<iostream>
+
+1656117026 c:\users\jmgoi\onedrive\documentos\ayda\tp1\tp ayda\include\cliente.h
+	<iostream>
+
+1656115980 source:c:\users\jmgoi\onedrive\documentos\ayda\tp1\tp ayda\src\filagral.cpp
+	"FilaGral.h"
+
+1656134989 c:\users\jmgoi\onedrive\documentos\ayda\tp1\tp ayda\include\filagral.h
+	"Cliente.h"
+
+1656133087 source:c:\users\jmgoi\onedrive\documentos\ayda\tp1\tp ayda\src\mesaentrada.cpp
+
+1656134882 c:\users\jmgoi\onedrive\documentos\ayda\tp1\tp ayda\include\mesaentrada.h
+	"Cliente.h"
+
+1656132967 source:c:\users\jmgoi\onedrive\documentos\ayda\tp1\tp ayda\main.cpp
+	<iostream>
+	"MesaEntrada.h"
+	"Cliente.h"
+
+1656131504 source:c:\users\jmgoi\onedrive\documentos\tp ayda\src\cliente.cpp
+	"CLIENTE.h"
+	<iostream>
+
+1656181180 c:\users\jmgoi\onedrive\documentos\tp ayda\include\cliente.h
+	<iostream>
+
+1656135021 source:c:\users\jmgoi\onedrive\documentos\tp ayda\src\filagral.cpp
+	"FilaGral.h"
+
+1656136701 c:\users\jmgoi\onedrive\documentos\tp ayda\include\filagral.h
+	"Cliente.h"
+
+1656133087 source:c:\users\jmgoi\onedrive\documentos\tp ayda\src\mesaentrada.cpp
+
