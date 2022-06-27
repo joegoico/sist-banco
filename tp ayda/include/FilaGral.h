@@ -9,8 +9,8 @@ class FilaGral
         FilaGral();
         ~FilaGral();
         void agregarCliente(T persona);//agrega al cliente en la fila
-        void atenderCliente();
         void crearFila();
+        void atenderCliente();
 
     private:
         struct nodoCliente{
@@ -42,7 +42,16 @@ template<typename T> void FilaGral<T>::atenderCliente(){
         aux=aux->sigCliente;
     ultimo=aux;
     aux=aux->sigCliente;
-    ultimo->sigCliente=nullptr;
+    ultimo->sigCliente=aux->sigCliente;
     delete(aux)
+}
+template <typename T> void FilaGral<T>::crearFila(){
+    string op, ec;
+    cout<<"a continuacion ingrese el tipo de operacion";
+    cin>>op;
+    cout<<"ingres t si es cliente, y f si no es cliente";
+    cin>>ec;
+
+
 }
 #endif // FILAGRAL_H

@@ -16,6 +16,7 @@ class MesaEntrada
         MesaEntrada(T persona);
         //~MesaEntrada();
         void agregarCliente(Nodo* primero,T persona);//agrega al cliente en el registro historico de clientes
+
 };
 template<typename T>MesaEntrada<T>::MesaEntrada(T persona){
     primero->cliente=persona;
