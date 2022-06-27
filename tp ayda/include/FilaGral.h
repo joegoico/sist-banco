@@ -1,28 +1,36 @@
 #ifndef FILAGRAL_H
 #define FILAGRAL_H
 #include"Cliente.h"
-
-template<typename T>
 class FilaGral
 {
     public:
         FilaGral();
-        ~FilaGral();
-        void agregarCliente(T persona);//agrega al cliente en la fila
+        //~FilaGral();
+        void agregarCliente(Cliente persona);//agrega al cliente en la fila
         void crearFila();
-        void atenderCliente();
-
+        void atenderCliente(int nfila);
+        int cantfilas;
+        void agregarnodo(Cliente persona);
+        void borrarnodo(nodoCliente *aux);
     private:
         struct nodoCliente{
-            T cliente;
+            Cliente cliente;
             nodoCliente *sigCliente;
-        }; nodoCliente *primero,*ultimo;
+        }; nodoCliente *primero,*primero2,*primero3,*ultimo,*ultimo2,*ultimo3;
 };
-template <typename T> FilaGral<T>::FilaGral(){
+FilaGral::FilaGral(){
     primero=nullptr;
     ultimo=nullptr;
 }
-template <typename T>void FilaGral<T>::agregarCliente(T persona){
+void FilaGral::borrarnodo(nodoCliente aux,nodoCliente paux){
+    while(aux->sigCliente!=paux)
+        aux=aux->sigCliente;
+    paux=aux;
+    aux=aux->sigCliente;
+    paux->sigCliente=aux->sigCliente;
+    delete(aux);
+}
+void FilaGral::agregarnodo(Cliente persona){
     nodoCliente * aux=new nodoCliente;
     aux->cliente=persona;
     aux->sigCliente =nullptr;
@@ -31,27 +39,39 @@ template <typename T>void FilaGral<T>::agregarCliente(T persona){
         ultimo=aux;
     }
     else{
-        aux->sigCliente=primero;
-        primero->sigCliente=aux;
+        aux->sigCliente=ultimo;
+        ultimo->sigCliente=aux;
     }
 }
-template<typename T> void FilaGral<T>::atenderCliente(){
-    nodoCliente* aux= new aux;
-    aux=primero;
-    while(aux->sigCliente!=ultimo)
-        aux=aux->sigCliente;
-    ultimo=aux;
-    aux=aux->sigCliente;
-    ultimo->sigCliente=aux->sigCliente;
-    delete(aux)
+void FilaGral::agregarCliente(Cliente persona){
+    if (cantfilas>1){
+        if(coincide primer criterio){
+            a
+        }
+        else{
+            agrego a segunda fila
+        }
+    }
+    else{
+        agregarnodo(Cliente persona);
+    }
 }
-template <typename T> void FilaGral<T>::crearFila(){
-    string op, ec;
-    cout<<"a continuacion ingrese el tipo de operacion";
-    cin>>op;
-    cout<<"ingres t si es cliente, y f si no es cliente";
-    cin>>ec;
-
-
+void FilaGral::atenderCliente(int nfila){
+    if(nfila==1)
+        borrarnodo(ultimo2,primero2)
+    else if(nfila==2)
+        borrarnodo(ultimo3,primero3)
+    else
+        borrarnodo(ultimo,primero);
+}
+void FilaGral::crearFila(){
+   if (cantfilas==1){
+        primero2=nullptr;
+        ultimo2=nullptr;
+   }
+   else if(cantfilas==2){
+        primero3=nullptr;
+        ultimo3=nullptr;
+   }
 }
 #endif // FILAGRAL_H

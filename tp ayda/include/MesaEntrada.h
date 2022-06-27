@@ -2,39 +2,43 @@
 #define MESAENTRADA_H
 #include "Cliente.h"
 #include"FilaGral.h"
-template<typename T>
 class MesaEntrada
 {
     private:
         struct Nodo{
-            T cliente;
-            Nodo *menores;
-            Nodo *Mayores;
-        }; Nodo *primero;
-        FilaGral<Cliente> fclientes;
+            Cliente cliente;
+            Nodo *sig;
+        };
     public:
-        MesaEntrada(T persona);
+        Nodo *cursor;
+        MesaEntrada();
         //~MesaEntrada();
-        void agregarCliente(Nodo* primero,T persona);//agrega al cliente en el registro historico de clientes
+        void agregarCliente(Cliente persona);//Agrega al cliente en el registro historico de clientes
 
 };
-template<typename T>MesaEntrada<T>::MesaEntrada(T persona){
-    primero->cliente=persona;
-    primero->Mayores =nullptr;
-    primero->menores=nullptr;
+MesaEntrada::MesaEntrada(){
+   primero=nullptr;
 }
-template<typename T>void MesaEntrada<T>::agregarCliente(Nodo *primero,T persona){
+void MesaEntrada::agregarCliente(Cliente persona){
     if(primero=nullptr){
         primero->cliente=persona;
-        primero->Mayores=nullptr;
-        primero->menores=nullptr;
-        fclientes.atenderCliente(persona);
-        //tengo q llamar al metodo de la fila q manda el cliente a la fila
+        primero->sig=nullptr;
     }
-    else if(persona.monto>primero->cliente.monto)
-        return agregarCliente(primero->Mayores,persona);
-    else
-        return agregarCliente(primero->menores,persona);
-
+    else if(persona.monto<primero->cliente.monto){
+        Nodo *aux=new Nodo;
+        aux->cliente=persona;
+        aux->sig=primero;
+        primero=aux;
+    }
+    else{
+        Nodo *aux=new Nodo;
+        Nodo *aux2=new Nodo;
+        aux=primero;
+        while(aux->sig!=nullptr) && (persona.monto>aux->sig->cliente.monto)
+            aux=aux->sig;
+        aux2->cliente=persona;
+        aux2->sig=aux->sig;
+        aux->sig=aux2;
+    }
 }
 #endif // MESAENTRADA_H

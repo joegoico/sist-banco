@@ -8,9 +8,6 @@ Cliente::Cliente(string nombre, int edad, int monto, string operacion, string de
    this->destinatario=destinatario;
    this->esCliente=esCliente;
 }
-void Cliente::imprimir(){
-    //cout<<"hola"<<nombre;
-}
 //CLIENTE::~CLIENTE()
 //{
     //dtor

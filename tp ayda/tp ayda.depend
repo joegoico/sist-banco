@@ -37,3 +37,28 @@
 
 1656133087 source:c:\users\jmgoi\onedrive\documentos\tp ayda\src\mesaentrada.cpp
 
+1656362373 source:d:\facultad\ayda1\sist-banco\tp ayda\src\cliente.cpp
+	"CLIENTE.h"
+	<iostream>
+
+1656354696 d:\facultad\ayda1\sist-banco\tp ayda\include\cliente.h
+	<iostream>
+
+1656302974 source:d:\facultad\ayda1\sist-banco\tp ayda\src\filagral.cpp
+	"FilaGral.h"
+
+1656362527 d:\facultad\ayda1\sist-banco\tp ayda\include\filagral.h
+	"Cliente.h"
+
+1656302974 source:d:\facultad\ayda1\sist-banco\tp ayda\src\mesaentrada.cpp
+
+1656345824 source:d:\facultad\ayda1\sist-banco\tp ayda\main.cpp
+	<iostream>
+	"MesaEntrada.h"
+	"Cliente.h"
+	"FilaGral.h"
+
+1656345872 d:\facultad\ayda1\sist-banco\tp ayda\include\mesaentrada.h
+	"Cliente.h"
+	"FilaGral.h"
+
