@@ -4,29 +4,19 @@
 #include"FilaGral.h"
 using namespace std;
 void ingresar(FilaGral general,FilaGral especial,FilaGral especial2,int cantfilas,condicion criterio,condicion criterio2,Cliente persona){
-    int fila;
-    if (cantfilas==1){
-        fila=0;
-        general.agregarCliente(persona,fila)
-    }
+    if (cantfilas==1)
+        general.agregarCliente(persona);
     else{
-        /*tengo que verificar si algun criterio es vacio, para el caso de q no se haya definido ese criterio
-          o que se haya borrado la fila*/
         if(criterio.operacion!=""){
-            if (criterio.operacion==persona.operacion)&&(criterio.escliente==persona.esCliente){
-                fila=1;
-                especial.agregarCliente(persona,fila);
-            }
+            if (criterio.operacion==persona.operacion)&&(criterio.escliente==persona.esCliente)
+                especial.agregarCliente(persona);
         }
         else if(criterio2.operacion!=""){
-            if (criterio2.operacion==persona.operacion)&&(criterio2.escliente==persona.esCliente){
-                fila=2;
-                especial2.agregarCliente(persona,fila);
-            }
+            if (criterio2.operacion==persona.operacion)&&(criterio2.escliente==persona.esCliente)
+                especial2.agregarCliente(persona);
         }
         else
-            fila=0;
-            general.agregarCliente(persona,fila);
+            general.agregarCliente(persona);
     }
 }
 Cliente tomarDatos(){
@@ -76,7 +66,66 @@ Cliente tomarDatos(){
     Cliente aux(nombre,edad,monto,operacion,destinatario,x);
     return aux;
 }
-void crearFila(){
+void cerrarcola(condicion criterio,condicion criterio2,int nfila,FilaGral especial,FilaGral especial2){
+    cout<<"Que fila desea cerrar?"<<endl;
+    if(criterio.operacion!="")
+        cout<<"1 para fila de"<<criterio.operacion<<"y es cliente: "<<criterio.escliente<<endl;
+    if(criterio2.operacion!="")
+        cout<<"2 para fila de"<<criterio2.operacion<<"y es cliente: "<<criterio2.escliente<<endl;
+    cin>>nfila;
+    while (nfila!=1)&&(nfila!=2){
+        cout<<"Introduzca un numero de fila valido."<<endl;
+        cin>>nfila;
+    }
+    if (nfila==1){
+        if especial.filaVacia()
+            criterio.operacion=""
+        else
+            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma."
+    }
+    else{
+        if especial2.filaVacia()
+            criterio2.operacion=""
+        else
+            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma."
+    }
+}
+void abrircola(int cantfilas,condicion criterio,condicion criterio2,FilaGral especial,FilaGral especial2){
+    if(cantfilas<3){
+        if(criterio.operacion=="")
+            especial.crearFila(cantfilas);
+        else if(criterio2.operacion=="")
+            especial2.crearFila(cantfilas);
+        cantfilas +=1;
+    }
+    else
+        cout<<"ya hay dos filas especiales"<<endl;
+}
+void atendercliente(condicion criterio,condicion criterio2,int nfila,FilaGral general,FilaGral especial,FilaGral especial2){
+    cout<<"0 para fila general"<<endl;
+    if(criterio.operacion!="")
+        cout<<"1 para fila de"<<criterio.operacion<<"y es cliente: "<<criterio.escliente<<endl;
+    if(criterio2.operacion!="")
+        cout<<"2 para fila de"<<criterio2.operacion<<"y es cliente: "<<criterio2.escliente<<endl;
+    cout<<"Ingrese la fila de la que quiere atender al proximo cliente:"<<endl;
+    cin>>nfila;
+    while (nfila<0) || (nfila>2){
+        cout<<"Ingrese una fila valida:"<<endl;
+        cin>>nfila;
+    }
+    if (nfila==0)
+        general.atenderCliente(nfila)
+    else if (nfila==1)
+        especial.atenderCliente(nfila)
+    else
+        especial2.atenderCliente(nfila);
+}
+void listaroperaciones(MesaEntrada historicos){
+    int montomax,montomin;
+    cout<<"Introduzca un monto minimo:"<<endl;
+    cin>>montomin;
+    cout<<"Introduzca un monto maximo:"<<endl;
+    cin>>montomax;
 }
 void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral especial2,int cantfilas){
     int opcion;
@@ -96,50 +145,33 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
         cout<<"Ingrese una opcion valida:"<<endl;
         cin>>opcion;
     }
+    int nfila;
     if (opcion==1){
-        tomarDatos();
         Cliente persona=tomarDatos();
         historicos.agregarCliente(persona);
         ingresar(general,especial,especial2,cantfilas,criterio,criterio2,persona);
     }
-    else if (opcion==2){
-        int nfila;
-        cout<<"0 para fila general"<<endl;
-        if(criterio.operacion!="")|| (criterio2.operacion!=""){
-            if(criterio.operacion!="")
-                cout<<"1 para fila de"<<criterio.operacion<<"y es cliente: "<<criterio.escliente<<endl;
-            if(criterio2.operacion!="")
-                cout<<"2 para fila de"<<criterio2.operacion<<"y es cliente: "<<criterio2.escliente<<endl;
-        }
-        cout<<"Ingrese la fila de la que quiere atender al proximo cliente:"<<endl;
-        cin>>nfila;
-        while (nfila<0) || (nfila>3){
-            cout<<"Ingrese una fila valida:"<<endl;
-            cin>>nfila;
-        }
-        if (nfila==0)
-            general.atenderCliente(nfila)
-        else if (nfila==1)
-            especial.atenderCliente(nfila)
-        else
-            especial2.atenderCliente(nfila);
+    else if (opcion==2)
+        atendercliente(criterio,criterio2,nfila,general,especial,especial2);
+    else if (opcion==3)
+        abrircola(cantfilas,criterio,criterio2,especial,especial2);
+    else if (opcion==4)
+        cerrarcola(criterio,criterio2,nfila,especial,especial2);
+    else{
+        /*float promedio;
+        listaroperaciones(historicos,promedio);
+        cout<<"El promedio de edad de los clientes es:"<<promedio<<endl;*/
     }
-    else if (opcion==3){
-        if(cantfilas<3){
-            if(criterio.operacion=="")
-                especial.crearFila(cantfilas);
-            else if(criterio2.operacion=="")
-                especial2.crearFila(cantfilas);
-            cantfilas +=1;
-        }
-        else
-            cout<<"ya hay dos filas especiales"<<endl;
-    }
-    else if (opcion==4){
-
+    cout<<"Si desea realizar otra accion ingrese s, para salir ingrese n."<<endl;
+    char salida;
+    cin>>salida;
+    if (salida=="s"){
+        cout<<"-----------------------------------------------"<<endl;
+        cout<<"-----------------------------------------------"<<endl;
+        menu(historicos,general,especial,especial2,cantfilas);
     }
     else{
-
+        cout <<"Salida realizada con exito.";
     }
 }
 int main(){
@@ -150,7 +182,4 @@ int main(){
     FilaGral especial2;
     menu(historicos,general,especial,especial2,cantfilas);
     return 0;
-    /*- hay que revisar la opcion 2 evaluado en el caso donde se borro una fila.
-      - chequear 1 y 3(terminadas)
-      - faltan opcion 4 y 5*/
 }
