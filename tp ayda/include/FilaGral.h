@@ -30,31 +30,26 @@ void FilaGral::borrarnodo(nodoCliente aux,nodoCliente paux){
     paux->sigCliente=aux->sigCliente;
     delete(aux);
 }
-void FilaGral::agregarnodo(Cliente persona){
+void FilaGral::agregarnodo(Cliente persona,nodoCliente paux,nodoCliente uaux){
     nodoCliente * aux=new nodoCliente;
     aux->cliente=persona;
     aux->sigCliente =nullptr;
-    if(primero==nullptr){
-        primero=aux;
-        ultimo=aux;
+    if(paux==nullptr){
+        paux=aux;
+        uaux=aux;
     }
     else{
-        aux->sigCliente=ultimo;
-        ultimo->sigCliente=aux;
+        aux->sigCliente=uaux;
+        uaux->sigCliente=aux;
     }
 }
-void FilaGral::agregarCliente(Cliente persona){
-    if (cantfilas>1){
-        if(coincide primer criterio){
-            a
-        }
-        else{
-            agrego a segunda fila
-        }
-    }
-    else{
-        agregarnodo(Cliente persona);
-    }
+void FilaGral::agregarCliente(Cliente persona,int fila){
+    if(fila==0)
+        agregarnodo(persona,primero,ultimo)
+    else if(fila==1)
+        agregarnodo(persona,primero2,ultimo2)
+    else
+        agregarnodo(persona,primero3,ultimo3)
 }
 void FilaGral::atenderCliente(int nfila){
     if(nfila==1)
@@ -64,12 +59,12 @@ void FilaGral::atenderCliente(int nfila){
     else
         borrarnodo(ultimo,primero);
 }
-void FilaGral::crearFila(){
-   if (cantfilas==1){
+void FilaGral::crearFila(int cantfilas){
+   if (primero2==nullptr && ultimo2==nullptr){
         primero2=nullptr;
         ultimo2=nullptr;
    }
-   else if(cantfilas==2){
+   else if(primero3==nullptr && ultimo3==nullptr){
         primero3=nullptr;
         ultimo3=nullptr;
    }
