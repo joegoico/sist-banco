@@ -1,5 +1,4 @@
 #include "FilaGral.h"
-
 FilaGral::FilaGral(){
     primero=nullptr;
     ultimo=nullptr;

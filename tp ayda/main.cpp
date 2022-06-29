@@ -25,7 +25,8 @@ void ingresar(FilaGral general,FilaGral especial,FilaGral especial2,int cantfila
     }
 }
 Cliente tomarDatos(){
-    string nombre, operacion, destinatario,esCliente;
+    string nombre, operacion, destinatario;
+    char esCliente;
     int edad;
     int monto;
     bool x;
@@ -44,25 +45,25 @@ Cliente tomarDatos(){
         cin>>monto;
     }
     cout<<"Ingrese la operacion a realizar "<<endl;
-    cout<<"deposito, pago, retiro o transferencia, ingrese nuevamente";
+    cout<<"deposito, pago, retiro o transferencia";
     cin>>operacion;
-    while(operacion!= "deposito" || operacion!= "pago" || operacion!="retiro" || operacion!="transferencia"){
+    while(operacion!= "deposito" && operacion!= "pago" && operacion!="retiro" && operacion!="transferencia"){
         cout<<"El valor que ingreso no es valido, ingrese nuevamente";
         cin>>operacion;
     }
     cout<<"Ingrese el destinatario: persona, banco o impuesto ";
     cin>>destinatario;
-    while(destinatario!= "persona" || destinatario!="banco" || destinatario!="impuesto"){
+    while(destinatario!= "persona" && destinatario!="banco" && destinatario!="impuesto"){
         cout<<"El valor que ingreso no es valido, ingrese nuevamente";
         cin>>destinatario;
     }
     cout<<"Si es cliente ingrese T, de lo contrario ingrese F ";
     cin>>esCliente;
-    while(esCliente!= "T" || esCliente!="F"){
+    while(esCliente!= 'T' && esCliente!='F'){
         cout<<"El valor que ingreso no es valido, ingrese nuevamente";
         cin>>esCliente;
     }
-    if (esCliente=="T"){
+    if (esCliente=='T'){
          x=true;
     }
     else{
@@ -154,6 +155,7 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
     if (opcion==1){
         Cliente persona=tomarDatos();
         historicos.agregarCliente(persona);
+        cout<<persona.nombre<<endl;
         ingresar(general,especial,especial2,cantfilas,criterio,criterio2,persona);
     }
     else if (opcion==2)

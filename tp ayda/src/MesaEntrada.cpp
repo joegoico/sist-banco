@@ -19,9 +19,12 @@ MesaEntrada::MesaEntrada(){
     promedio=suma/cant;
 }*/
 void MesaEntrada::agregarCliente(Cliente persona){
-    if(cursor=nullptr){
-        cursor->cliente=persona;
-        cursor->sig=nullptr;
+    Nodo *aux;
+    aux->cliente=persona;
+    aux->sig =nullptr;
+    if(cursor==nullptr){
+        cursor=aux;
+        cout<<"hola";
     }
     else if(persona.monto<cursor->cliente.monto){
         Nodo *aux;
