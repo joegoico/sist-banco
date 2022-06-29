@@ -1,16 +1,12 @@
 #include "MesaEntrada.h"
-/*#include<iostream>
-using namespace std;*/
 MesaEntrada::MesaEntrada(){
    cursor=nullptr;
 }
 void MesaEntrada::agregarCliente(Cliente persona){
     if(cursor==nullptr){
-        //Nodo *aux;
-        cout<<"hola";
         cursor->cliente=persona;
+        cout<<"hola";
         cursor->sig =nullptr;
-        //cursor=aux;
     }
     else if(persona.monto<cursor->cliente.monto){
         Nodo *aux;
