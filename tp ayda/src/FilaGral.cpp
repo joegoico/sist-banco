@@ -4,6 +4,7 @@ FilaGral::FilaGral(){
     primero=nullptr;
     ultimo=nullptr;
 }
+
 bool FilaGral::filaVacia(){
     if (primero==nullptr && ultimo==nullptr)
         return true;
@@ -11,7 +12,7 @@ bool FilaGral::filaVacia(){
         return false;
 }
 void FilaGral::agregarCliente(Cliente persona){
-    nodoCliente * aux=new nodoCliente;
+    nodoCliente *aux;
     aux->cliente=persona;
     aux->sigCliente =nullptr;
     if(primero==nullptr){
@@ -23,7 +24,9 @@ void FilaGral::agregarCliente(Cliente persona){
         ultimo->sigCliente=aux;
     }
 }
-void FilaGral::atenderCliente(int nfila){
+void FilaGral::atenderCliente(){
+    nodoCliente *aux;
+    aux=ultimo;
     while(aux->sigCliente!=primero)
         aux=aux->sigCliente;
     primero=aux;
@@ -31,11 +34,12 @@ void FilaGral::atenderCliente(int nfila){
     primero->sigCliente=aux->sigCliente;
     delete(aux);
 }
-void FilaGral::crearFila(int cantfilas){
-   if (primero==nullptr && ultimo==nullptr)
-        agregarnodo(persona,primero,ultimo);
+void FilaGral::abrirFilaEspecial(){
+    this->esEspecial=true;
 }
-
+bool FilaGral::getFilaAbierta(){
+    return this->estaAbierta;
+}
 
 //FilaGral::~FilaGral()
 //{

@@ -62,3 +62,29 @@
 	"Cliente.h"
 	"FilaGral.h"
 
+1656470568 source:c:\users\jmgoi\onedrive\documentos\sist-banco\sist-banco\tp ayda\main.cpp
+	<iostream>
+	"MesaEntrada.h"
+	"Cliente.h"
+	"FilaGral.h"
+
+1656461858 c:\users\jmgoi\onedrive\documentos\sist-banco\sist-banco\tp ayda\include\mesaentrada.h
+	"Cliente.h"
+
+1656462813 c:\users\jmgoi\onedrive\documentos\sist-banco\sist-banco\tp ayda\include\cliente.h
+	<iostream>
+
+1656470507 c:\users\jmgoi\onedrive\documentos\sist-banco\sist-banco\tp ayda\include\filagral.h
+	"Cliente.h"
+
+1656461858 source:c:\users\jmgoi\onedrive\documentos\sist-banco\sist-banco\tp ayda\src\cliente.cpp
+	"CLIENTE.h"
+	<iostream>
+
+1656470192 source:c:\users\jmgoi\onedrive\documentos\sist-banco\sist-banco\tp ayda\src\filagral.cpp
+	"FilaGral.h"
+
+1656464578 source:c:\users\jmgoi\onedrive\documentos\sist-banco\sist-banco\tp ayda\src\mesaentrada.cpp
+	"MesaEntrada.h"
+	<iostream>
+

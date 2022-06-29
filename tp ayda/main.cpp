@@ -3,16 +3,21 @@
 #include "Cliente.h"
 #include"FilaGral.h"
 using namespace std;
+struct condicion{
+    string operacion = "";
+    bool escliente;
+};
+int cantfilas=1;
 void ingresar(FilaGral general,FilaGral especial,FilaGral especial2,int cantfilas,condicion criterio,condicion criterio2,Cliente persona){
     if (cantfilas==1)
         general.agregarCliente(persona);
     else{
         if(criterio.operacion!=""){
-            if (criterio.operacion==persona.operacion)&&(criterio.escliente==persona.esCliente)
+            if (criterio.operacion==persona.operacion && criterio.escliente==persona.esCliente)
                 especial.agregarCliente(persona);
         }
         else if(criterio2.operacion!=""){
-            if (criterio2.operacion==persona.operacion)&&(criterio2.escliente==persona.esCliente)
+            if (criterio2.operacion==persona.operacion && criterio2.escliente==persona.esCliente)
                 especial2.agregarCliente(persona);
         }
         else
@@ -73,29 +78,29 @@ void cerrarcola(condicion criterio,condicion criterio2,int nfila,FilaGral especi
     if(criterio2.operacion!="")
         cout<<"2 para fila de"<<criterio2.operacion<<"y es cliente: "<<criterio2.escliente<<endl;
     cin>>nfila;
-    while (nfila!=1)&&(nfila!=2){
+    while (nfila!=1 && nfila!=2){
         cout<<"Introduzca un numero de fila valido."<<endl;
         cin>>nfila;
     }
     if (nfila==1){
-        if especial.filaVacia()
-            criterio.operacion=""
+        if (especial.filaVacia())
+            criterio.operacion="";
         else
-            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma."
+            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma.";
     }
     else{
-        if especial2.filaVacia()
-            criterio2.operacion=""
+        if (especial2.filaVacia())
+            criterio2.operacion="";
         else
-            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma."
+            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma.";
     }
 }
 void abrircola(int cantfilas,condicion criterio,condicion criterio2,FilaGral especial,FilaGral especial2){
     if(cantfilas<3){
-        if(criterio.operacion=="")
-            especial.crearFila(cantfilas);
-        else if(criterio2.operacion=="")
-            especial2.crearFila(cantfilas);
+        if(!especial.getFilaAbierta())
+            especial.abrirFilaEspecial();
+        else if(!especial2.getFilaAbierta())
+            especial2.abrirFilaEspecial();
         cantfilas +=1;
     }
     else
@@ -109,16 +114,16 @@ void atendercliente(condicion criterio,condicion criterio2,int nfila,FilaGral ge
         cout<<"2 para fila de"<<criterio2.operacion<<"y es cliente: "<<criterio2.escliente<<endl;
     cout<<"Ingrese la fila de la que quiere atender al proximo cliente:"<<endl;
     cin>>nfila;
-    while (nfila<0) || (nfila>2){
+    while (nfila<0 || nfila>2){
         cout<<"Ingrese una fila valida:"<<endl;
         cin>>nfila;
     }
     if (nfila==0)
-        general.atenderCliente(nfila)
+        general.atenderCliente();
     else if (nfila==1)
-        especial.atenderCliente(nfila)
+        especial.atenderCliente();
     else
-        especial2.atenderCliente(nfila);
+        especial2.atenderCliente();
 }
 void listaroperaciones(MesaEntrada historicos){
     int montomax,montomin;
@@ -129,10 +134,10 @@ void listaroperaciones(MesaEntrada historicos){
 }
 void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral especial2,int cantfilas){
     int opcion;
-    struct condicion{
+/*    struct condicion{
         string operacion = "";
         bool escliente;
-    };
+    };*/
     condicion criterio,criterio2;
     cout<<"-------------Menu-------------"<<endl;
     cout<<"1.Ingresar nuevo cliente."<<endl;
@@ -141,7 +146,7 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
     cout<<"4.Cerrar cola especial."<<endl;
     cout<<"5.Listar operaciones entre dos montos."<<endl;
     cin>>opcion;
-    while (opcion<1) || (opcion>5){
+    while (opcion<1 || opcion>5){
         cout<<"Ingrese una opcion valida:"<<endl;
         cin>>opcion;
     }
@@ -165,7 +170,7 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
     cout<<"Si desea realizar otra accion ingrese s, para salir ingrese n."<<endl;
     char salida;
     cin>>salida;
-    if (salida=="s"){
+    if (salida=='s'){
         cout<<"-----------------------------------------------"<<endl;
         cout<<"-----------------------------------------------"<<endl;
         menu(historicos,general,especial,especial2,cantfilas);
@@ -174,8 +179,8 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
         cout <<"Salida realizada con exito.";
     }
 }
+
 int main(){
-    int cantfilas=1;
     MesaEntrada historicos;
     FilaGral general;
     FilaGral especial;
