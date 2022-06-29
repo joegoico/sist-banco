@@ -1,30 +1,12 @@
 #include "MesaEntrada.h"
-#include<iostream>
-using namespace std;
 MesaEntrada::MesaEntrada(){
    cursor=nullptr;
 }
-/*Cliente MesaEntrada::listar(int montomin,int montomax,float &promedio){
-    Nodo *aux=new Nodo;
-    aux=cursor;
-    int suma=0,cant=0;
-    while (aux->sig!=nullptr)&&(aux->cliente.monto<montomax){
-        if (aux->cliente.monto>montomin){
-            En esta linea deberia imprimir por pantalla los datos del cliente
-            suma+=aux->cliente.edad;
-            cant++;
-        }
-        aux=aux->sig;
-    }
-    promedio=suma/cant;
-}*/
 void MesaEntrada::agregarCliente(Cliente persona){
-    Nodo *aux;
-    aux->cliente=persona;
-    aux->sig =nullptr;
     if(cursor==nullptr){
-        cursor=aux;
+        cursor->cliente=persona;
         cout<<"hola";
+        cursor->sig =nullptr;
     }
     else if(persona.monto<cursor->cliente.monto){
         Nodo *aux;
@@ -43,6 +25,20 @@ void MesaEntrada::agregarCliente(Cliente persona){
         aux->sig=aux2;
     }
 }
+/*Cliente MesaEntrada::listar(int montomin,int montomax,float &promedio){
+    Nodo *aux=new Nodo;
+    aux=cursor;
+    int suma=0,cant=0;
+    while (aux->sig!=nullptr)&&(aux->cliente.monto<montomax){
+        if (aux->cliente.monto>montomin){
+            En esta linea deberia imprimir por pantalla los datos del cliente
+            suma+=aux->cliente.edad;
+            cant++;
+        }
+        aux=aux->sig;
+    }
+    promedio=suma/cant;
+}*/
 //MesaEntrada::~MesaEntrada()
 //{
 //    //dtor

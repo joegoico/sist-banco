@@ -7,8 +7,9 @@ class FilaGral
         FilaGral();
         //~FilaGral();
         void agregarCliente(Cliente persona);//agrega al cliente en la fila
-        void abrirFilaEspecial();
+        void abrirFilaEspecial(bool x);
         void atenderCliente();
+        bool existeCliente(Cliente persona);
         int cantfilas;
         bool filaVacia();
         bool getFilaAbierta();
@@ -17,6 +18,6 @@ class FilaGral
             Cliente cliente;
             nodoCliente *sigCliente;
         }; nodoCliente *primero,*ultimo;
-        bool esEspecial=false, estaAbierta = true;
+        bool esEspecial=false, estaAbierta = false;
 };
 #endif // FILAGRAL_H

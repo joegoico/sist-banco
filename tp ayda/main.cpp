@@ -10,18 +10,31 @@ struct condicion{
 int cantfilas=1;
 void ingresar(FilaGral general,FilaGral especial,FilaGral especial2,int cantfilas,condicion criterio,condicion criterio2,Cliente persona){
     if (cantfilas==1)
-        general.agregarCliente(persona);
+        if(general.existeCliente(persona)==false)
+                general.agregarCliente(persona);
+            else
+                cout<<"el cliente que ingreso ya existe"<<endl;
     else{
-        if(criterio.operacion!=""){
-            if (criterio.operacion==persona.operacion && criterio.escliente==persona.esCliente)
-                especial.agregarCliente(persona);
+        if(!especial.getFilaAbierta()){
+            if(especial.existeCliente(persona)==false){
+                if (criterio.operacion==persona.operacion && criterio.escliente==persona.esCliente)
+                    especial.agregarCliente(persona);
+                }
+                else
+                    cout<<"el cliente que ingreso ya existe"<<endl;
         }
-        else if(criterio2.operacion!=""){
-            if (criterio2.operacion==persona.operacion && criterio2.escliente==persona.esCliente)
-                especial2.agregarCliente(persona);
+        else if(!especial2.getFilaAbierta()){
+            if(especial2.existeCliente(persona)==false){
+                if (criterio2.operacion==persona.operacion && criterio2.escliente==persona.esCliente)
+                    especial2.agregarCliente(persona);
+            }
+            else
+                cout<<"el cliente que ingreso ya existe"<<endl;
         }
-        else
-            general.agregarCliente(persona);
+        else if(general.existeCliente(persona)==false)
+                general.agregarCliente(persona);
+            else
+                cout<<"el cliente que ingreso ya existe"<<endl;
     }
 }
 Cliente tomarDatos(){
@@ -72,36 +85,82 @@ Cliente tomarDatos(){
     Cliente aux(nombre,edad,monto,operacion,destinatario,x);
     return aux;
 }
-void cerrarcola(condicion criterio,condicion criterio2,int nfila,FilaGral especial,FilaGral especial2){
-    cout<<"Que fila desea cerrar?"<<endl;
-    if(criterio.operacion!="")
-        cout<<"1 para fila de"<<criterio.operacion<<"y es cliente: "<<criterio.escliente<<endl;
-    if(criterio2.operacion!="")
-        cout<<"2 para fila de"<<criterio2.operacion<<"y es cliente: "<<criterio2.escliente<<endl;
-    cin>>nfila;
-    while (nfila!=1 && nfila!=2){
-        cout<<"Introduzca un numero de fila valido."<<endl;
+void cerrarcola(condicion &criterio,condicion &criterio2,int nfila,FilaGral &especial,FilaGral &especial2){
+    if(especial.getFilaAbierta() || especial2.getFilaAbierta()){
+        cout<<"Que fila desea cerrar?"<<endl;
+        if(especial.getFilaAbierta()){
+            if(criterio.escliente)
+                cout<<"1 para fila de "<<criterio.operacion<<" y es cliente: "<<"verdadero"<<endl;
+            else
+                cout<<"1 para fila de "<<criterio.operacion<<" y es cliente: "<<"falso"<<endl;
+
+        }
+        if (especial2.getFilaAbierta())
+            if(criterio2.escliente)
+                cout<<"2 para fila de "<<criterio2.operacion<<" y es cliente: "<<"verdadero"<<endl;
+            else
+                cout<<"2 para fila de "<<criterio2.operacion<<" y es cliente: "<<"falso"<<endl;
+
         cin>>nfila;
+        while (nfila!=1 && nfila!=2){
+            cout<<"Introduzca un numero de fila valido."<<endl;
+            cin>>nfila;
+        }
+        if (nfila==1){
+            if (especial.filaVacia()){
+                criterio.operacion="";
+                especial.abrirFilaEspecial(false);
+            }
+            else
+                cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma.";
+        }
+        else{
+            if (especial2.filaVacia()){
+                criterio2.operacion="";
+                especial2.abrirFilaEspecial(false);
+            }
+            else
+                cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma.";
+        }
     }
-    if (nfila==1){
-        if (especial.filaVacia())
-            criterio.operacion="";
-        else
-            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma.";
-    }
-    else{
-        if (especial2.filaVacia())
-            criterio2.operacion="";
-        else
-            cout<<"Para poder eliminar la fila auxiliar, primero debe atender todos los clientes de la misma.";
-    }
+    else
+        cout<<"no hay filas especiales para cerrar"<<endl;
 }
-void abrircola(int cantfilas,condicion criterio,condicion criterio2,FilaGral especial,FilaGral especial2){
+void abrircola(int &cantfilas,condicion &criterio,condicion &criterio2,FilaGral &especial,FilaGral &especial2){
+    char t;
+    string op;
     if(cantfilas<3){
-        if(!especial.getFilaAbierta())
-            especial.abrirFilaEspecial();
-        else if(!especial2.getFilaAbierta())
-            especial2.abrirFilaEspecial();
+        if(!especial.getFilaAbierta()){
+            cout<<"ingrese la categoria de operacion"<<endl;
+            cin>>criterio.operacion;
+            cout<<"si es cliente ingrese t, de lo contrario ingrese f  ";
+            cin>>t;
+            while(t!='t' && t!='f'){
+                cout<<"ingrese un caracter valido"<<endl;
+                cin>>t;
+            }
+            if(t='t')
+                criterio.escliente=true;
+            else
+                criterio.escliente=false;
+            especial.abrirFilaEspecial(true);
+        }
+        else if(!especial2.getFilaAbierta()){
+            cout<<"ingrese la categoria de operacion"<<endl;
+            cin>>criterio2.operacion;
+            cout<<"si es cliente ingrese tde lo contrario ingrese f  ";
+            cin>>t;
+            while(t!='t' && t!='f'){
+                cout<<"ingrese un caracter valido"<<endl;
+                cin>>t;
+            }
+            if(t='t')
+                criterio2.escliente=true;
+            else
+                criterio2.escliente=false;
+            especial2.abrirFilaEspecial(true);
+
+        }
         cantfilas +=1;
     }
     else
@@ -133,13 +192,8 @@ void listaroperaciones(MesaEntrada historicos){
     cout<<"Introduzca un monto maximo:"<<endl;
     cin>>montomax;
 }
-void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral especial2,int cantfilas){
+void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral especial2,int cantfilas,condicion &criterio,condicion &criterio2){
     int opcion;
-/*    struct condicion{
-        string operacion = "";
-        bool escliente;
-    };*/
-    condicion criterio,criterio2;
     cout<<"-------------Menu-------------"<<endl;
     cout<<"1.Ingresar nuevo cliente."<<endl;
     cout<<"2.Atender cliente."<<endl;
@@ -155,7 +209,6 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
     if (opcion==1){
         Cliente persona=tomarDatos();
         historicos.agregarCliente(persona);
-        cout<<persona.nombre<<endl;
         ingresar(general,especial,especial2,cantfilas,criterio,criterio2,persona);
     }
     else if (opcion==2)
@@ -165,9 +218,7 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
     else if (opcion==4)
         cerrarcola(criterio,criterio2,nfila,especial,especial2);
     else{
-        /*float promedio;
-        listaroperaciones(historicos,promedio);
-        cout<<"El promedio de edad de los clientes es:"<<promedio<<endl;*/
+
     }
     cout<<"Si desea realizar otra accion ingrese s, para salir ingrese n."<<endl;
     char salida;
@@ -175,18 +226,18 @@ void menu(MesaEntrada historicos,FilaGral general,FilaGral especial,FilaGral esp
     if (salida=='s'){
         cout<<"-----------------------------------------------"<<endl;
         cout<<"-----------------------------------------------"<<endl;
-        menu(historicos,general,especial,especial2,cantfilas);
+        menu(historicos,general,especial,especial2,cantfilas,criterio,criterio2);
     }
     else{
         cout <<"Salida realizada con exito.";
     }
 }
-
 int main(){
+    condicion criterio,criterio2;
     MesaEntrada historicos;
     FilaGral general;
     FilaGral especial;
     FilaGral especial2;
-    menu(historicos,general,especial,especial2,cantfilas);
+    menu(historicos,general,especial,especial2,cantfilas,criterio,criterio2);
     return 0;
 }
